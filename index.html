@@ -1,5 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Dashboard</title>
+
+<style>
+body { font-family: Arial; margin: 0; background: #f0f2f5; }
+
+.container { display: flex; height: 100vh; }
+
+.dashboard { flex: 3; padding: 10px; }
+
+.chatbot {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    border-left: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+iframe {
+    width: 100%;
+    height: 95vh;
+    border: none;
+    border-radius: 8px;
+}
+
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.msg {
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin: 5px 0;
+    max-width: 85%;
+}
+
+.user {
+    background: #0078d4;
+    color: white;
+    margin-left: auto;
+}
+
+.bot {
+    background: #e8e8e8;
+    color: #333;
+}
+
+.input-area {
+    display: flex;
+    gap: 5px;
+}
+
+input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+button {
+    padding: 8px 12px;
+    background: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- POWER BI DASHBOARD -->
+<div class="dashboard">
+<iframe src="https://app.powerbi.com/reportEmbed?reportId=17e8ff1f-7652-4c23-81a6-82f2429ecffe&autoAuth=true&ctid=1490b17d-5dc9-4cbf-aeba-a2e854f521b8"></iframe>
+</div>
+
+<!-- CHATBOT -->
+<div class="chatbot">
+
+<h3>🤖 AI Assistant</h3>
+
+<div id="chat-box"></div>
+
+<div class="input-area">
+<input id="user-input" type="text" placeholder="Ask something..." />
+<button id="send-btn">Send</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- SCRIPT AT BOTTOM (IMPORTANT) -->
 <script>
 
+// Wait for page load
 window.onload = function () {
 
     const input = document.getElementById("user-input");
@@ -19,31 +121,37 @@ window.onload = function () {
 
         // Greetings
         if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
-            reply = "Hello! 👋 I'm here to help you understand the dashboard.";
+            reply = "Hello! 👋 I'm here to help you explore the dashboard insights.";
         }
 
         // Hotels
         else if (q.includes("hotel")) {
-            reply = "The dashboard contains data for a total of 447 hotels.";
+            reply = "The dashboard includes data for a total of 447 hotels.";
         }
 
         // Price
         else if (q.includes("price")) {
-            reply = "The average price is approximately 2.10K.";
+            reply = "The average price is approximately 2.10K across the dataset.";
         }
 
         // Rating
         else if (q.includes("rating")) {
-            reply = "The average rating is around 608.49.";
+            reply = "The average rating is around 608.49, reflecting customer satisfaction.";
         }
 
         // Location
-        else if (q.includes("location")) {
-            reply = "You can compare hotel performance across different locations using filters.";
+        else if (q.includes("location") || q.includes("city") || q.includes("state")) {
+            reply = "You can compare hotel performance across locations using filters in the dashboard.";
         }
 
+        // Compare
+        else if (q.includes("compare")) {
+            reply = "This dashboard allows comparison of hotels based on price, rating, and location.";
+        }
+
+        // Default
         else {
-            reply = "Try asking about hotels, price, rating, or location.";
+            reply = "Try asking about hotels, price, rating, or location for insights.";
         }
 
         chatBox.innerHTML += `<div class="msg bot">${reply}</div>`;
@@ -61,3 +169,6 @@ window.onload = function () {
 };
 
 </script>
+
+</body>
+</html>
