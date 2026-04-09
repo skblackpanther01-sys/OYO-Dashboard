@@ -1,130 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>AI Dashboard</title>
-
-<style>
-body { font-family: Arial; margin: 0; }
-.container { display: flex; height: 100vh; }
-.dashboard { flex: 3; }
-.chatbot { flex: 1; padding: 10px; border-left: 2px solid #ccc; display: flex; flex-direction: column; }
-iframe { width: 100%; height: 100%; border: none; }
-#chat-box { flex: 1; overflow-y: auto; }
-.msg { margin: 5px; padding: 8px; border-radius: 8px; }
-.user { background: blue; color: white; text-align: right; }
-.bot { background: #eee; }
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="dashboard">
-<iframe src="https://app.powerbi.com/reportEmbed?reportId=17e8ff1f-7652-4c23-81a6-82f2429ecffe&autoAuth=true&ctid=1490b17d-5dc9-4cbf-aeba-a2e854f521b8"></iframe>
-</div>
-
-<div class="chatbot">
-
-<h3>Chatbot</h3>
-
-<div id="chat-box"></div>
-
-<input id="user-input" type="text" placeholder="Type here..." />
-<button id="send-btn">Send</button>
-
-</div>
-
-</div>
-
 <script>
-function sendMessage() {
+
+window.onload = function () {
+
     const input = document.getElementById("user-input");
+    const button = document.getElementById("send-btn");
     const chatBox = document.getElementById("chat-box");
 
-    const text = input.value.trim();
-    if (!text) return;
+    function sendMessage() {
 
-    chatBox.innerHTML += `<div class="msg user">${text}</div>`;
-    input.value = "";
+        const text = input.value.trim();
+        if (!text) return;
 
-    const q = text.toLowerCase();
-    let reply = "";
+        chatBox.innerHTML += `<div class="msg user">${text}</div>`;
+        input.value = "";
 
-    // 🔹 Greetings
-    if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
-        const greetings = [
-            "Hello! 👋 I'm here to help you understand the dashboard insights.",
-            "Hi there! 😊 Ask me anything about hotel data, pricing, or ratings.",
-            "Hey! 👋 I can help you explore trends and comparisons in the dashboard.",
-            "Hello! Feel free to ask about hotels, price trends, or ratings."
-        ];
-        reply = greetings[Math.floor(Math.random() * greetings.length)];
-    }
+        const q = text.toLowerCase();
+        let reply = "";
 
-    // 🔹 Hotels count
-    else if (q.includes("hotel")) {
-        reply = "The dashboard contains data for a total of 447 hotels, allowing detailed comparative analysis across locations.";
-    }
-
-    // 🔹 Price insights
-    else if (q.includes("price")) {
-        reply = "The average price is approximately 2.10K. Prices vary across locations, reflecting different market trends.";
-    }
-
-    // 🔹 Rating insights
-    else if (q.includes("rating")) {
-        reply = "The average rating is around 608.49, indicating overall customer satisfaction levels across hotels.";
-    }
-
-    // 🔹 Combined logic
-    else if (q.includes("price") && q.includes("rating")) {
-        reply = "There is a relationship between price and rating. Higher-priced hotels often show better ratings, but some mid-range options offer great value.";
-    }
-
-    // 🔹 Location
-    else if (q.includes("location") || q.includes("city") || q.includes("state")) {
-        reply = "You can compare hotel performance across locations using the dashboard filters to identify high-performing regions.";
-    }
-
-    // 🔹 Best / top
-    else if (q.includes("best") || q.includes("top")) {
-        reply = "Top-performing hotels typically combine high ratings with competitive pricing, delivering strong value.";
-    }
-
-    // 🔹 Compare
-    else if (q.includes("compare")) {
-        reply = "The dashboard enables comparison across hotels based on price, rating, and location to uncover insights.";
-    }
-
-    // 🔹 Default smart responses
-    else {
-        const responses = [
-            "The dashboard provides insights into hotel performance across multiple metrics.",
-            "You can explore trends using filters and interactive visuals.",
-            "This analysis helps in understanding pricing strategies and customer satisfaction.",
-            "Try asking about hotels, price, rating, or location for specific insights."
-        ];
-        reply = responses[Math.floor(Math.random() * responses.length)];
-    }
-
-    // 🔥 Typing effect
-    const botDiv = document.createElement("div");
-    botDiv.className = "msg bot";
-    chatBox.appendChild(botDiv);
-
-    let i = 0;
-    function typeEffect() {
-        if (i < reply.length) {
-            botDiv.innerHTML += reply.charAt(i);
-            i++;
-            setTimeout(typeEffect, 15);
+        // Greetings
+        if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
+            reply = "Hello! 👋 I'm here to help you understand the dashboard.";
         }
-    }
-    typeEffect();
 
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+        // Hotels
+        else if (q.includes("hotel")) {
+            reply = "The dashboard contains data for a total of 447 hotels.";
+        }
+
+        // Price
+        else if (q.includes("price")) {
+            reply = "The average price is approximately 2.10K.";
+        }
+
+        // Rating
+        else if (q.includes("rating")) {
+            reply = "The average rating is around 608.49.";
+        }
+
+        // Location
+        else if (q.includes("location")) {
+            reply = "You can compare hotel performance across different locations using filters.";
+        }
+
+        else {
+            reply = "Try asking about hotels, price, rating, or location.";
+        }
+
+        chatBox.innerHTML += `<div class="msg bot">${reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Button click
+    button.onclick = sendMessage;
+
+    // Enter key
+    input.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") sendMessage();
+    });
+
+};
+
 </script>
-</body>
-</html>
