@@ -38,15 +38,6 @@ iframe { width: 100%; height: 100%; border: none; }
 </div>
 
 <script>
-
-// Button click
-document.getElementById("send-btn").addEventListener("click", sendMessage);
-
-// Enter key
-document.getElementById("user-input").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") sendMessage();
-});
-
 function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
@@ -57,28 +48,60 @@ function sendMessage() {
     chatBox.innerHTML += `<div class="msg user">${text}</div>`;
     input.value = "";
 
-    let reply = "I'm analyzing the dashboard data...";
+    const q = text.toLowerCase();
+    let reply = "";
 
-    if (text.toLowerCase().includes("price")) {
-        reply = "The dashboard shows variation in hotel prices across different locations, helping identify pricing trends.";
+    // Dynamic logic
+    if (q.includes("price") && q.includes("rating")) {
+        reply = "There is a noticeable relationship between price and rating. Higher-priced hotels often show better ratings, but there are exceptions indicating value-for-money options.";
     } 
-    else if (text.toLowerCase().includes("rating")) {
-        reply = "Ratings indicate customer satisfaction and can be compared with pricing to evaluate performance.";
+    else if (q.includes("price")) {
+        reply = "Hotel prices vary significantly across locations. Some regions offer budget-friendly options while others have premium pricing trends.";
     } 
-    else if (text.toLowerCase().includes("location")) {
-        reply = "You can use the location filter to compare hotel performance across different regions.";
+    else if (q.includes("rating")) {
+        reply = "Ratings reflect customer satisfaction. Higher ratings generally indicate better service quality and customer experience.";
     } 
-    else if (text.toLowerCase().includes("best")) {
-        reply = "Hotels with higher ratings and moderate pricing tend to perform better in this dataset.";
+    else if (q.includes("location") || q.includes("city") || q.includes("state")) {
+        reply = "Using the location filter, you can compare how hotels perform across different regions and identify high-performing areas.";
+    } 
+    else if (q.includes("best") || q.includes("top")) {
+        reply = "The best-performing hotels are those with a balance of high ratings and reasonable pricing, offering strong value to customers.";
+    } 
+    else if (q.includes("compare")) {
+        reply = "This dashboard allows comparative analysis of hotels across price, rating, and location to identify performance differences.";
+    } 
+    else if (q.includes("insight") || q.includes("analysis")) {
+        reply = "Key insights include pricing trends, customer satisfaction patterns, and regional performance variations across hotels.";
     } 
     else {
-        reply = "This dashboard enables comparative analysis of hotels based on price, rating, and location.";
+        // Random smart responses (makes it feel AI)
+        const responses = [
+            "The dashboard provides useful insights into hotel performance across different metrics.",
+            "You can explore trends by interacting with filters and visualizations.",
+            "This analysis helps in understanding pricing strategies and customer preferences.",
+            "The data highlights variations in hotel performance across regions.",
+            "Try asking about price, rating, or location for more specific insights."
+        ];
+        reply = responses[Math.floor(Math.random() * responses.length)];
     }
 
-    chatBox.innerHTML += `<div class="msg bot">${reply}</div>`;
+    // Typing effect (AI feel)
+    const botDiv = document.createElement("div");
+    botDiv.className = "msg bot";
+    chatBox.appendChild(botDiv);
+
+    let i = 0;
+    function typeEffect() {
+        if (i < reply.length) {
+            botDiv.innerHTML += reply.charAt(i);
+            i++;
+            setTimeout(typeEffect, 15);
+        }
+    }
+    typeEffect();
+
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
 </script>
 </body>
 </html>
