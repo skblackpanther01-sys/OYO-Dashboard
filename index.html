@@ -51,41 +51,64 @@ function sendMessage() {
     const q = text.toLowerCase();
     let reply = "";
 
-    // Dynamic logic
-    if (q.includes("price") && q.includes("rating")) {
-        reply = "There is a noticeable relationship between price and rating. Higher-priced hotels often show better ratings, but there are exceptions indicating value-for-money options.";
-    } 
+    // 🔹 Greetings
+    if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
+        const greetings = [
+            "Hello! 👋 I'm here to help you understand the dashboard insights.",
+            "Hi there! 😊 Ask me anything about hotel data, pricing, or ratings.",
+            "Hey! 👋 I can help you explore trends and comparisons in the dashboard.",
+            "Hello! Feel free to ask about hotels, price trends, or ratings."
+        ];
+        reply = greetings[Math.floor(Math.random() * greetings.length)];
+    }
+
+    // 🔹 Hotels count
+    else if (q.includes("hotel")) {
+        reply = "The dashboard contains data for a total of 447 hotels, allowing detailed comparative analysis across locations.";
+    }
+
+    // 🔹 Price insights
     else if (q.includes("price")) {
-        reply = "Hotel prices vary significantly across locations. Some regions offer budget-friendly options while others have premium pricing trends.";
-    } 
+        reply = "The average price is approximately 2.10K. Prices vary across locations, reflecting different market trends.";
+    }
+
+    // 🔹 Rating insights
     else if (q.includes("rating")) {
-        reply = "Ratings reflect customer satisfaction. Higher ratings generally indicate better service quality and customer experience.";
-    } 
+        reply = "The average rating is around 608.49, indicating overall customer satisfaction levels across hotels.";
+    }
+
+    // 🔹 Combined logic
+    else if (q.includes("price") && q.includes("rating")) {
+        reply = "There is a relationship between price and rating. Higher-priced hotels often show better ratings, but some mid-range options offer great value.";
+    }
+
+    // 🔹 Location
     else if (q.includes("location") || q.includes("city") || q.includes("state")) {
-        reply = "Using the location filter, you can compare how hotels perform across different regions and identify high-performing areas.";
-    } 
+        reply = "You can compare hotel performance across locations using the dashboard filters to identify high-performing regions.";
+    }
+
+    // 🔹 Best / top
     else if (q.includes("best") || q.includes("top")) {
-        reply = "The best-performing hotels are those with a balance of high ratings and reasonable pricing, offering strong value to customers.";
-    } 
+        reply = "Top-performing hotels typically combine high ratings with competitive pricing, delivering strong value.";
+    }
+
+    // 🔹 Compare
     else if (q.includes("compare")) {
-        reply = "This dashboard allows comparative analysis of hotels across price, rating, and location to identify performance differences.";
-    } 
-    else if (q.includes("insight") || q.includes("analysis")) {
-        reply = "Key insights include pricing trends, customer satisfaction patterns, and regional performance variations across hotels.";
-    } 
+        reply = "The dashboard enables comparison across hotels based on price, rating, and location to uncover insights.";
+    }
+
+    // 🔹 Default smart responses
     else {
-        // Random smart responses (makes it feel AI)
         const responses = [
-            "The dashboard provides useful insights into hotel performance across different metrics.",
-            "You can explore trends by interacting with filters and visualizations.",
-            "This analysis helps in understanding pricing strategies and customer preferences.",
-            "The data highlights variations in hotel performance across regions.",
-            "Try asking about price, rating, or location for more specific insights."
+            "The dashboard provides insights into hotel performance across multiple metrics.",
+            "You can explore trends using filters and interactive visuals.",
+            "This analysis helps in understanding pricing strategies and customer satisfaction.",
+            "Try asking about hotels, price, rating, or location for specific insights."
         ];
         reply = responses[Math.floor(Math.random() * responses.length)];
     }
 
-    // Typing effect (AI feel)
+    // 🔥 Typing effect
     const botDiv = document.createElement("div");
     botDiv.className = "msg bot";
     chatBox.appendChild(botDiv);
