@@ -26,21 +26,18 @@ iframe {
     border-radius: 8px;
 }
 
-/* Chat box */
 #chat-box {
     flex: 1;
     overflow-y: auto;
     margin-bottom: 10px;
 }
 
-/* Message wrapper */
 .message {
     display: flex;
     align-items: flex-start;
     margin: 8px 0;
 }
 
-/* Icons */
 .icon {
     width: 35px;
     height: 35px;
@@ -55,7 +52,6 @@ iframe {
 .user-icon { background: #0078d4; color: white; }
 .bot-icon { background: #28a745; color: white; }
 
-/* Message content */
 .msg-content {
     max-width: 75%;
 }
@@ -81,7 +77,6 @@ iframe {
     color: #333;
 }
 
-/* Input area */
 .input-area {
     display: flex;
     gap: 5px;
@@ -186,10 +181,12 @@ window.onload = function () {
         else if (q.includes("hotels")) {
             reply = "The dataset includes hotels from 4 different states, enabling detailed comparative analysis.";
         }
-            // number of hotele
+
+        // number of hotels
         else if (q.includes("number")) {
             reply = "The dataset includes hotels from : Delhi-447, Banglore-144, Kolkata-126, Mumbai-20.";
         }
+
         // Price
         else if (q.includes("price")) {
             reply = "The average price is around 2.10K. Pricing varies across different locations with Banglore having least avg price 1.35K and Mumbau with highest price 2.53K.";
@@ -224,16 +221,17 @@ window.onload = function () {
         else if (q.includes("insight")) {
             reply = "Key insights from the dashboard show that hotel prices vary significantly across locations, indicating diverse market segments. While higher-priced hotels often achieve better ratings, several mid-range hotels also perform strongly, highlighting value-for-money opportunities. Additionally, certain locations consistently demonstrate higher customer satisfaction, making them key focus areas for strategic decision-making.";
         }
-            // thank you
+
+        // Thank you
         else if (
-    q.includes("thank") ||
-    q.includes("thanks") ||
-    q.includes("thank you") ||
-    q.includes("thankyou") ||
-    q.includes("great")
-) {
-    reply = "You're welcome 😊 Feel free to ask more questions anytime!";
-}
+            q.includes("thank") ||
+            q.includes("thanks") ||
+            q.includes("thank you") ||
+            q.includes("thankyou") ||
+            q.includes("great")
+        ) {
+            reply = "You're welcome 😊 Feel free to ask more questions anytime!";
+        }
 
         else {
             reply = "Try asking about hotels, price, rating, location, or trends for better insights.";
@@ -242,7 +240,7 @@ window.onload = function () {
         setTimeout(() => addMessage(reply, "bot"), 400);
     }
 
-    button.onclick = sendMessage;
+    button.addEventListener("click", sendMessage);
 
     input.addEventListener("keypress", function(e) {
         if (e.key === "Enter") sendMessage();
