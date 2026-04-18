@@ -225,8 +225,15 @@ window.onload = function () {
             reply = "Key insights from the dashboard show that hotel prices vary significantly across locations, indicating diverse market segments. While higher-priced hotels often achieve better ratings, several mid-range hotels also perform strongly, highlighting value-for-money opportunities. Additionally, certain locations consistently demonstrate higher customer satisfaction, making them key focus areas for strategic decision-making.";
         }
             // thank you
-        else if (q.includes("great") || q.includes("thank you")) {
-            reply = "Welcome, come back any moment for more insights & a better understanding.";
+        else if (
+    q.includes("thank") ||
+    q.includes("thanks") ||
+    q.includes("thank you") ||
+    q.includes("thankyou") ||
+    q.includes("great")
+) {
+    reply = "You're welcome 😊 Feel free to ask more questions anytime!";
+}
         }
 
         else {
