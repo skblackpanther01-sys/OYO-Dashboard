@@ -26,30 +26,62 @@ iframe {
     border-radius: 8px;
 }
 
+/* Chat box */
 #chat-box {
     flex: 1;
     overflow-y: auto;
     margin-bottom: 10px;
 }
 
-.msg {
+/* Message wrapper */
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin: 8px 0;
+}
+
+/* Icons */
+.icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.user-icon { background: #0078d4; color: white; }
+.bot-icon { background: #28a745; color: white; }
+
+/* Message content */
+.msg-content {
+    max-width: 75%;
+}
+
+.name {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.bubble {
     padding: 8px 12px;
     border-radius: 12px;
-    margin: 5px 0;
-    max-width: 85%;
 }
 
-.user {
+.user-bubble {
     background: #0078d4;
     color: white;
-    margin-left: auto;
 }
 
-.bot {
+.bot-bubble {
     background: #e8e8e8;
     color: #333;
 }
 
+/* Input area */
 .input-area {
     display: flex;
     gap: 5px;
@@ -77,7 +109,7 @@ button {
 
 <div class="container">
 
-<!-- POWER BI DASHBOARD -->
+<!-- DASHBOARD -->
 <div class="dashboard">
 <iframe src="https://app.powerbi.com/reportEmbed?reportId=17e8ff1f-7652-4c23-81a6-82f2429ecffe&autoAuth=true&ctid=1490b17d-5dc9-4cbf-aeba-a2e854f521b8"></iframe>
 </div>
@@ -95,25 +127,51 @@ button {
 </div>
 
 </div>
-
 </div>
 
-<!-- SCRIPT AT BOTTOM (IMPORTANT) -->
 <script>
 
-// Wait for page load
 window.onload = function () {
 
     const input = document.getElementById("user-input");
     const button = document.getElementById("send-btn");
     const chatBox = document.getElementById("chat-box");
 
-    function sendMessage() {
+    function addMessage(text, sender) {
 
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message";
+
+        const icon = document.createElement("div");
+        icon.className = "icon " + (sender === "user" ? "user-icon" : "bot-icon");
+        icon.innerHTML = sender === "user" ? "👤" : "🤖";
+
+        const content = document.createElement("div");
+        content.className = "msg-content";
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.innerText = sender === "user" ? "You" : "AI Assistant";
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble " + (sender === "user" ? "user-bubble" : "bot-bubble");
+        bubble.innerText = text;
+
+        content.appendChild(name);
+        content.appendChild(bubble);
+
+        msgDiv.appendChild(icon);
+        msgDiv.appendChild(content);
+
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
         const text = input.value.trim();
         if (!text) return;
 
-        chatBox.innerHTML += `<div class="msg user">${text}</div>`;
+        addMessage(text, "user");
         input.value = "";
 
         const q = text.toLowerCase();
@@ -121,47 +179,61 @@ window.onload = function () {
 
         // Greetings
         if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
-            reply = "Hello! 👋 I'm here to help you explore the dashboard insights.";
+            reply = "Hello! 👋 I'm your Assistant for today and I am here to help you explore your dashboard insights.";
         }
 
         // Hotels
-        else if (q.includes("hotel")) {
-            reply = "The dashboard includes data for hotels of 4 different states including Banglore with 144, Delhi with 447, Kolkata 126 & Mumbai with 20 .";
+        else if (q.includes("hotels")) {
+            reply = "The dataset includes hotels from 4 different states, enabling detailed comparative analysis.";
         }
-
+            // number of hotele
+        else if (q.includes("number")) {
+            reply = "The dataset includes hotels from : Delhi-447, Banglore-144, Kolkata-126, Mumbai-20.";
+        }
         // Price
         else if (q.includes("price")) {
-            reply = "The average price is approximately 1.92K across the dataset.";
+            reply = "The average price is around 2.10K. Pricing varies across different locations with Banglore having least avg price 1.35K and Mumbau with highest price 2.53K.";
         }
 
         // Rating
         else if (q.includes("rating")) {
-            reply = "The average rating for all 4 states is around 635.64, reflecting customer satisfaction.";
+            reply = "The average rating is approximately 608.49 for hotels across all states, indicating customer satisfaction trends. Also these ratings depict that even hotels having similar price have variation in their ratings like hotels in Banglore & Kolkata having similar price range but a vast difference in price";
         }
 
         // Location
-        else if (q.includes("location") || q.includes("city") || q.includes("state")) {
-            reply = "You can compare hotel performance across locations using filters in the dashboard.";
+        else if (q.includes("location")) {
+            reply = "You can compare hotel performance across locations using the dashboard filters as a proper dedicated page has been created for location based analysis.";
         }
 
-        // Compare
+        // Best hotels
+        else if (q.includes("best") || q.includes("top")) {
+            reply = "Top hotels typically combine high ratings with reasonable pricing, widely seen in Bnaglore & Kolkata.";
+        }
+
+        // Comparison
         else if (q.includes("compare")) {
-            reply = "This dashboard allows comparison of hotels based on price, rating, and location.";
+            reply = "The dashboard allows comparison across hotels based on price, rating, and location.";
         }
 
-        // Default
+        // Trends
+        else if (q.includes("trend")) {
+            reply = "The dashboard highlights trends in pricing and customer ratings across regions.";
+        }
+
+        // Insights
+        else if (q.includes("insight")) {
+            reply = "Key insights from the dashboard show that hotel prices vary significantly across locations, indicating diverse market segments. While higher-priced hotels often achieve better ratings, several mid-range hotels also perform strongly, highlighting value-for-money opportunities. Additionally, certain locations consistently demonstrate higher customer satisfaction, making them key focus areas for strategic decision-making.";
+        }
+
         else {
-            reply = "Try asking about hotels, price, rating, or location for insights.";
+            reply = "Try asking about hotels, price, rating, location, or trends for better insights.";
         }
 
-        chatBox.innerHTML += `<div class="msg bot">${reply}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        setTimeout(() => addMessage(reply, "bot"), 400);
     }
 
-    // Button click
     button.onclick = sendMessage;
 
-    // Enter key
     input.addEventListener("keypress", function(e) {
         if (e.key === "Enter") sendMessage();
     });
