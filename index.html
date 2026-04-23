@@ -1,13 +1,24 @@
 <!DOCTYPE html>
+<html>
 <head>
 <title>AI Dashboard</title>
 
 <style>
-body { font-family: Arial; margin: 0; background: #f0f2f5; }
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f0f2f5;
+}
 
-.container { display: flex; height: 100vh; }
+.container {
+    display: flex;
+    height: 100vh;
+}
 
-.dashboard { flex: 3; padding: 10px; }
+.dashboard {
+    flex: 3;
+    padding: 10px;
+}
 
 .chatbot {
     flex: 1;
@@ -97,13 +108,14 @@ button {
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
 <!-- DASHBOARD -->
 <div class="dashboard">
-<iframe src="https://app.powerbi.com/reportEmbed?reportId=17e8ff1f-7652-4c23-81a6-82f2429ecffe&autoAuth=true&ctid=1490b17d-5dc9-4cbf-aeba-a2e854f521b8"></iframe>
+<iframe src="https://app.powerbi.com/reportEmbed?reportId=f7271de4-6434-4084-85de-fa1cc411afe8&autoAuth=true&ctid=1490b17d-5dc9-4cbf-aeba-a2e854f521b8"></iframe>
 </div>
 
 <!-- CHATBOT -->
@@ -122,6 +134,7 @@ button {
 </div>
 
 <script>
+
 window.onload = function () {
 
     const input = document.getElementById("user-input");
@@ -169,16 +182,46 @@ window.onload = function () {
         let reply = "";
 
         if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
-            reply = "Hello! 👋 I'm your Assistant for today and I am here to help you explore your dashboard insights.";
+            reply = "Hello! 👋 I can help you analyze hotel performance, pricing trends, and customer ratings.";
         }
-        else if (q.includes("hotels")) {
-            reply = "The dataset includes hotels from 4 different states.";
+        else if (q.includes("total hotels")) {
+            reply = "The dataset includes around 737 hotels across 4 major cities.";
+        }
+        else if (q.includes("city") || q.includes("distribution")) {
+            reply = "Delhi dominates with ~447 hotels, followed by Bangalore (144), Kolkata (126), and Mumbai (20).";
         }
         else if (q.includes("price")) {
-            reply = "Average price is around 2.10K.";
+            reply = "Average price is ₹2.10K. Mumbai is highest (~₹2.53K) while Bangalore is lowest (~₹1.35K).";
+        }
+        else if (q.includes("rating")) {
+            reply = "Average rating is ~608/1000. Mid-range hotels often outperform expensive ones in ratings.";
+        }
+        else if (q.includes("value") || q.includes("price vs rating")) {
+            reply = "Mid-range hotels offer the best value — higher prices don’t always guarantee better ratings.";
+        }
+        else if (q.includes("best")) {
+            reply = "Bangalore and Kolkata provide the best balance of affordability and customer satisfaction.";
+        }
+        else if (q.includes("worst")) {
+            reply = "Some high-priced hotels, especially in Mumbai, show lower relative ratings.";
+        }
+        else if (q.includes("trend")) {
+            reply = "Prices vary widely across cities, but ratings remain relatively stable.";
+        }
+        else if (q.includes("business") || q.includes("insight")) {
+            reply = "Focus on mid-range high-rated hotels, expand in Delhi, and optimize pricing in premium markets like Mumbai.";
+        }
+        else if (q.includes("compare")) {
+            reply = "Delhi leads in volume, Bangalore in affordability, and Mumbai in premium pricing.";
+        }
+        else if (q.includes("recommend")) {
+            reply = "Choose mid-range hotels in Bangalore/Kolkata. Businesses should target high-demand regions.";
+        }
+        else if (q.includes("thank") || q.includes("thanks")) {
+            reply = "You're welcome 😊 Ask more for deeper insights!";
         }
         else {
-            reply = "Try asking about hotels, price, rating, or trends.";
+            reply = "Try asking about price, rating, city comparison, or business insights.";
         }
 
         setTimeout(() => addMessage(reply, "bot"), 400);
@@ -189,7 +232,9 @@ window.onload = function () {
     input.addEventListener("keypress", function(e) {
         if (e.key === "Enter") sendMessage();
     });
+
 };
+
 </script>
 
 </body>
