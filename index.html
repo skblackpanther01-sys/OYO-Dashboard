@@ -3,7 +3,7 @@
 <head>
 <title>AI Dashboard</title>
 
-</style>
+<style>
 body { font-family: Arial; margin: 0; background: #f0f2f5; }
 
 .container { display: flex; height: 100vh; }
@@ -52,9 +52,7 @@ iframe {
 .user-icon { background: #0078d4; color: white; }
 .bot-icon { background: #28a745; color: white; }
 
-.msg-content {
-    max-width: 75%;
-}
+.msg-content { max-width: 75%; }
 
 .name {
     font-size: 12px;
@@ -98,6 +96,7 @@ button {
     cursor: pointer;
 }
 </style>
+
 </head>
 
 <body>
@@ -125,7 +124,6 @@ button {
 </div>
 
 <script>
-
 window.onload = function () {
 
     const input = document.getElementById("user-input");
@@ -172,69 +170,17 @@ window.onload = function () {
         const q = text.toLowerCase();
         let reply = "";
 
-        // Greetings
         if (q.includes("hello") || q.includes("hi") || q.includes("hey")) {
             reply = "Hello! 👋 I'm your Assistant for today and I am here to help you explore your dashboard insights.";
         }
-
-        // Hotels
         else if (q.includes("hotels")) {
-            reply = "The dataset includes hotels from 4 different states, enabling detailed comparative analysis.";
+            reply = "The dataset includes hotels from 4 different states.";
         }
-
-        // number of hotels
-        else if (q.includes("number")) {
-            reply = "The dataset includes hotels from : Delhi-447, Banglore-144, Kolkata-126, Mumbai-20.";
-        }
-
-        // Price
         else if (q.includes("price")) {
-            reply = "The average price is around 2.10K. Pricing varies across different locations with Banglore having least avg price 1.35K and Mumbau with highest price 2.53K.";
+            reply = "Average price is around 2.10K.";
         }
-
-        // Rating
-        else if (q.includes("rating")) {
-            reply = "The average rating is approximately 608.49 out of 1000 for hotels across all states, indicating customer satisfaction trends. Also these ratings depict that even hotels having similar price have variation in their ratings like hotels in Banglore & Kolkata having similar price range but a vast difference in price";
-        }
-
-        // Location
-        else if (q.includes("location")) {
-            reply = "You can compare hotel performance across locations using the dashboard filters as a proper dedicated page has been created for location based analysis.";
-        }
-
-        // Best hotels
-        else if (q.includes("best") || q.includes("top")) {
-            reply = "Top hotels typically combine high ratings with reasonable pricing, widely seen in Bnaglore & Kolkata.";
-        }
-
-        // Comparison
-        else if (q.includes("compare")) {
-            reply = "The dashboard allows comparison across hotels based on price, rating, and location.";
-        }
-
-        // Trends
-        else if (q.includes("trend")) {
-            reply = "The dashboard highlights trends in pricing and customer ratings across regions.";
-        }
-
-        // Insights
-        else if (q.includes("insight")) {
-            reply = "Key insights from the dashboard show that hotel prices vary significantly across locations, indicating diverse market segments. While higher-priced hotels often achieve better ratings, several mid-range hotels also perform strongly, highlighting value-for-money opportunities. Additionally, certain locations consistently demonstrate higher customer satisfaction, making them key focus areas for strategic decision-making.";
-        }
-
-        // Thank you
-        else if (
-            q.includes("thank") ||
-            q.includes("thanks") ||
-            q.includes("thank you") ||
-            q.includes("thankyou") ||
-            q.includes("great")
-        ) {
-            reply = "You're welcome 😊 Feel free to ask more questions anytime!";
-        }
-
         else {
-            reply = "Try asking about hotels, price, rating, location, or trends for better insights.";
+            reply = "Try asking about hotels, price, rating, or trends.";
         }
 
         setTimeout(() => addMessage(reply, "bot"), 400);
@@ -245,9 +191,7 @@ window.onload = function () {
     input.addEventListener("keypress", function(e) {
         if (e.key === "Enter") sendMessage();
     });
-
 };
-
 </script>
 
 </body>
